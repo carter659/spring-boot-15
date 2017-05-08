@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>
+			<%= title %>
+		</title>
+		<link rel='stylesheet' href='/stylesheets/style.css' />
+		<script src="//cdn.bootcss.com/angular.js/1.5.6/angular.min.js"></script>
+		<script type="text/javascript">
+			var app = angular.module('app', []);
+			app.controller('MainController', function($rootScope, $scope, $http) {
+				$http({
+					method: 'GET',
+					url: '/api/findAllUser'
+				}).then(function successCallback(r) {
+					$scope.rows = r.data;
+				});
+			});
+		</script>
+	</head>
+
+	<body ng-app="app" ng-controller="MainController">
+		<h1><%= title %></h1>
+		<p>Welcome to
+			<%= title %>
+		</p>
+
+		<br />
+		<table>
+			<tr ng-repeat="row in rows">
+				<td>{{row.id}}</td>
+				<td>{{row.name}}</td>
+				<td>{{row.age}}</td>
+			</tr>
+		</table>
+
+	</body>
+
+</html>
